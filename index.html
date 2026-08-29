@@ -29,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* 嚴格遵照指定字型大小要求 */
         .card-category {
             font-size: 12pt !important;
             line-height: 1.4;
@@ -45,7 +44,6 @@
             line-height: 1.5;
         }
 
-        /* 對角平行斜線紋理 (參考附圖三條斜線樣式) */
         .stripe-lines-cyan {
             background: repeating-linear-gradient(
                 -45deg,
@@ -66,16 +64,10 @@
             );
         }
 
-        /* 對角線幾何切塊裝飾 */
         .geo-triangle-top-right {
             clip-path: polygon(100% 0, 0 0, 100% 100%);
         }
 
-        .geo-triangle-bottom-left {
-            clip-path: polygon(0 100%, 0 0, 100% 100%);
-        }
-
-        /* 向量風格幾何卡片 */
         .excel-card {
             transition: all 0.25s cubic-bezier(0.2, 0.8, 0.25, 1);
             background: #FFFFFF;
@@ -89,7 +81,6 @@
             border-color: var(--green-dark);
         }
 
-        /* 隱藏滾動條但保持滾動功能 */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -101,29 +92,22 @@
 </head>
 <body class="min-h-screen flex flex-col relative selection:bg-[#F4EC99] selection:text-[#12291E]">
 
-    <!-- 全域向量幾何背景裝飾 (完全套用附圖色系與幾何構圖) -->
+    <!-- 全域向量幾何背景裝飾 -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <!-- 大對角塊 -->
         <div class="absolute -top-32 -left-32 w-96 h-96 bg-[#255C47] transform -rotate-12 opacity-40"></div>
         <div class="absolute top-1/4 -right-20 w-80 h-80 bg-[#F4EC99] opacity-20 transform rotate-45"></div>
-        <!-- 對角平行三線條 -->
         <div class="absolute top-10 right-1/4 w-72 h-8 stripe-lines-cyan opacity-40 transform -rotate-45"></div>
         <div class="absolute bottom-20 left-10 w-96 h-12 stripe-lines-yellow opacity-30 transform rotate-12"></div>
-        <!-- 圓形與三角形特徵 -->
         <div class="absolute bottom-1/3 -left-16 w-64 h-64 rounded-full bg-[#4DB8A4]/20 border-8 border-[#4DB8A4]/30"></div>
     </div>
 
     <!-- 頂部標題與搜尋區 -->
     <header class="sticky top-0 z-30 bg-[#1E4A38] border-b-4 border-[#12291E] shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 relative overflow-hidden">
-            
-            <!-- Header 幾何色塊與斜線裝飾 -->
             <div class="absolute top-0 right-0 w-32 h-full bg-[#F4EC99] geo-triangle-top-right opacity-90 pointer-events-none hidden sm:block"></div>
             <div class="absolute bottom-0 right-28 w-24 h-6 stripe-lines-cyan pointer-events-none hidden md:block"></div>
 
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 relative z-10">
-                
-                <!-- 大標題 (EXCEL函數攻略站) -->
                 <div class="flex items-center space-x-4">
                     <div class="relative flex items-center justify-center w-14 h-14 bg-[#F4EC99] text-[#12291E] rounded-none border-3 border-[#12291E] shadow-[4px_4px_0px_#12291E] transform -rotate-2">
                         <i class="fa-solid fa-file-excel text-3xl text-[#1E4A38]"></i>
@@ -137,7 +121,6 @@
                     </div>
                 </div>
 
-                <!-- 搜尋列與計數器 -->
                 <div class="flex items-center space-x-3 w-full md:w-auto">
                     <div class="relative flex-1 md:w-80">
                         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-[#153628]"></i>
@@ -151,23 +134,17 @@
             </div>
         </div>
 
-        <!-- 類別快速切換頁籤區 (幾何向量風) -->
         <div class="bg-[#153628] border-t-2 border-[#12291E] px-4 py-2.5 relative">
             <div class="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto no-scrollbar py-1" id="categoryTabs">
-                <!-- 由 JavaScript 動態生成類別按鈕 -->
             </div>
         </div>
     </header>
 
     <!-- 主要卡片展示區域 -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 z-10 relative">
-        
-        <!-- 卡片網格容器 (維持標號 1~58 嚴格順序) -->
         <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- 卡片動態帶入 -->
         </div>
 
-        <!-- 查無資料提示 -->
         <div id="emptyState" class="hidden text-center py-20 bg-[#153628] rounded-none border-4 border-[#12291E] shadow-[8px_8px_0px_#12291E] my-8">
             <div class="inline-flex items-center justify-center w-16 h-16 bg-[#F4EC99] text-[#12291E] border-2 border-[#12291E] mb-4">
                 <i class="fa-solid fa-folder-open text-2xl"></i>
@@ -183,15 +160,11 @@
         <span id="toastMessage">已複製函數！</span>
     </div>
 
-    <!-- 點擊卡片彈出的詳細內容小視窗 (Detail Modal) -->
+    <!-- 詳細內容小視窗 (Detail Modal) -->
     <div id="detailModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-[#0F261D]/80 backdrop-blur-sm transition-opacity duration-300">
         <div class="bg-white w-full max-w-2xl rounded-none shadow-[12px_12px_0px_#12291E] overflow-hidden transform transition-all border-4 border-[#12291E] flex flex-col max-h-[90vh] relative">
-            
-            <!-- Modal Header -->
             <div class="bg-[#1E4A38] text-white p-6 flex items-start justify-between relative overflow-hidden border-b-4 border-[#12291E]">
                 <div class="absolute right-0 top-0 w-36 h-full stripe-lines-cyan opacity-20 pointer-events-none"></div>
-                <div class="absolute left-1/3 -bottom-10 w-24 h-24 bg-[#F4EC99] rounded-full opacity-20 pointer-events-none"></div>
-                
                 <div class="relative z-10">
                     <div class="flex items-center space-x-2 mb-2">
                         <span id="modalIdBadge" class="bg-[#F4EC99] text-[#12291E] text-xs font-black px-2.5 py-1 border border-[#12291E]">#1</span>
@@ -204,33 +177,25 @@
                 </button>
             </div>
 
-            <!-- Modal Content (Scrollable) -->
             <div class="p-6 overflow-y-auto space-y-4 text-[#12291E] flex-1 bg-[#FAF5B8]/20">
-                <!-- 用途說明 -->
                 <div class="bg-white p-4.5 border-2 border-[#12291E] shadow-[4px_4px_0px_#12291E]">
                     <div class="text-xs font-black text-[#1E4A38] uppercase tracking-wider mb-1.5 flex items-center">
                         <i class="fa-solid fa-circle-info mr-2 text-[#4DB8A4]"></i> 用途說明
                     </div>
                     <p id="modalUsage" class="text-[#12291E] text-base leading-relaxed font-bold">--</p>
                 </div>
-
-                <!-- 引數說明 -->
                 <div class="bg-white p-4.5 border-2 border-[#12291E] shadow-[4px_4px_0px_#12291E]">
                     <div class="text-xs font-black text-[#153628] uppercase tracking-wider mb-1.5 flex items-center">
                         <i class="fa-solid fa-sliders mr-2 text-[#153628]"></i> 引數說明
                     </div>
                     <p id="modalArgs" class="font-mono text-sm text-[#12291E] bg-[#FAF5B8] p-3 border border-[#12291E] leading-relaxed overflow-x-auto font-bold">--</p>
                 </div>
-
-                <!-- 案例說明 -->
                 <div class="bg-white p-4.5 border-2 border-[#12291E] shadow-[4px_4px_0px_#12291E]">
                     <div class="text-xs font-black text-[#1E4A38] uppercase tracking-wider mb-1.5 flex items-center">
                         <i class="fa-solid fa-lightbulb mr-2 text-[#4DB8A4]"></i> 案例說明
                     </div>
                     <p id="modalExample" class="text-[#12291E] text-sm leading-relaxed font-semibold">--</p>
                 </div>
-
-                <!-- 公式解釋 -->
                 <div class="bg-white p-4.5 border-2 border-[#12291E] shadow-[4px_4px_0px_#12291E]">
                     <div class="text-xs font-black text-[#153628] uppercase tracking-wider mb-1.5 flex items-center">
                         <i class="fa-solid fa-calculator mr-2 text-[#153628]"></i> 公式解釋
@@ -239,7 +204,6 @@
                 </div>
             </div>
 
-            <!-- Modal Footer -->
             <div class="bg-[#153628] px-6 py-4 border-t-4 border-[#12291E] flex items-center justify-between">
                 <div class="flex space-x-2">
                     <button onclick="navigateModal(-1)" class="px-4 py-2 text-xs font-black bg-[#FAF5B8] border-2 border-[#12291E] text-[#12291E] hover:bg-white transition shadow-[2px_2px_0px_#12291E]">
@@ -256,7 +220,7 @@
         </div>
     </div>
 
-    <!-- 點擊「實作應用案例」彈出的照片資料小視窗 (Case Study Modal) -->
+    <!-- 實作應用案例 Modal (支援即時更換/上傳圖片) -->
     <div id="caseModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-[#0F261D]/80 backdrop-blur-sm transition-opacity duration-300">
         <div class="bg-white w-full max-w-3xl rounded-none shadow-[12px_12px_0px_#12291E] overflow-hidden transform transition-all border-4 border-[#12291E] flex flex-col max-h-[90vh] relative">
             
@@ -281,17 +245,27 @@
                 <div class="bg-white p-4 border-2 border-[#12291E] shadow-[4px_4px_0px_#12291E] flex flex-col items-center">
                     <div class="w-full mb-3 flex items-center justify-between text-xs font-black text-[#1E4A38]">
                         <span class="flex items-center gap-1.5"><i class="fa-solid fa-camera text-[#4DB8A4]"></i> 案例畫面與操作範例照片</span>
-                        <span class="bg-[#FAF5B8] text-[#12291E] px-2 py-0.5 border border-[#12291E]">照片資料區</span>
+                        
+                        <!-- 快速操作區：上傳本地圖片 / 設定網址 -->
+                        <div class="flex items-center gap-2">
+                            <label class="cursor-pointer bg-[#F4EC99] hover:bg-white text-[#12291E] px-2.5 py-1 border border-[#12291E] text-[11px] font-black transition flex items-center gap-1">
+                                <i class="fa-solid fa-upload"></i> 上傳電腦圖片
+                                <input type="file" accept="image/*" class="hidden" onchange="handleLocalImageUpload(event)">
+                            </label>
+                            <button onclick="promptImageUrl()" class="bg-[#4DB8A4] hover:bg-[#6BE3CE] text-[#12291E] px-2.5 py-1 border border-[#12291E] text-[11px] font-black transition flex items-center gap-1">
+                                <i class="fa-solid fa-link"></i> 輸入圖片網址
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="w-full bg-[#153628] border-2 border-[#12291E] overflow-hidden flex items-center justify-center min-h-[250px] max-h-[450px] relative group">
                         <img id="caseModalImage" src="" alt="案例圖片" class="w-full h-auto max-h-[450px] object-contain transition-transform duration-300 group-hover:scale-105" 
-                            onerror="this.onerror=null; this.src='https://placehold.co/800x450/1E4A38/FAF5B8?text=實作案例圖片預留區';">
+                            onerror="this.onerror=null; this.src='https://placehold.co/800x450/1E4A38/FAF5B8?text=請點選右上角按鈕上傳實作照片';">
                     </div>
 
                     <div class="w-full mt-3 p-3 bg-[#FAF5B8] border border-[#12291E] text-xs font-bold text-[#12291E]">
                         <i class="fa-solid fa-circle-info text-[#1E4A38] mr-1"></i> 
-                        <span id="caseModalDesc">目前展示預設預覽圖，後續可在 JavaScript 資料中為各函數填入實作照片網址。</span>
+                        <span id="caseModalDesc">點選上方「上傳電腦圖片」或「輸入圖片網址」，即可即時更換並預覽此函數的實際操作畫面！</span>
                     </div>
                 </div>
             </div>
@@ -327,74 +301,83 @@
     </footer>
 
     <script>
+        // 資料集：加入 caseImage 與 caseDesc 欄位
         const rawData = [
-            { id: 1, category: "時間系列函數", name: "TODAY", usage: "傳回目前日期的序列號（自動隨系統當天更新）。", args: "(無須引數)", example: "傳回今天的日期，如 2026/08/24。", formula: "傳回系統目前日期，不包含時間部分，常用於計算天數差或到期日。" },
-            { id: 2, category: "時間系列函數", name: "DATE", usage: "根據輸入的年、月、日三個獨立數字組合出標準 Excel 日期。", args: "(年份；月份；日期)", example: "結合其他儲存格的數字組合為標準日期格式", formula: "將數字 2026、8、18 合併轉換為標準日期 2026/8/18。" },
-            { id: 3, category: "時間系列函數", name: "DATEDIF", usage: "計算兩個日期之間的差距（天數、月數或年數）。", args: "(開始日期；結束日期；計算單位（\"Y\" 為年、\"M\" 為月、\"D\" 為天、\"YM\" 為扣除年份後的月份差）)", example: "計算員工的精準年資（以年為單位）", formula: "計算 A2 入職日期與今天之間的完整年數差。" },
-            { id: 4, category: "時間系列函數", name: "EDATE", usage: "計算指定日期在增加或減少 N 個月後的對應同一天日期。", args: "(起始日期；要增加或減少的月份數量（正數代表未來，負數代表過去）)", example: "計算合約到期日（簽約日加上 12 個月）", formula: "取得 A2 簽約日期在 12 個月後的同一天日期。" },
-            { id: 5, category: "時間系列函數", name: "EOMONTH", usage: "計算指定日期在偏移 N 個月後的「該月最後一天」日期。", args: "(起始日期；要偏移的月份數（0 代表當月，正數代表未來月份，負數代表過去月份）)", example: "計算當月或次月的結帳截止日（月底）", formula: "取得 A2 日期所在月份的最後一天日期（例如 2026/8/18 會傳回 2026/8/31）。" },
-            { id: 6, category: "時間系列函數", name: "WORKDAY", usage: "自動扣除週末（週六、週日）及指定國定假日，計算指定工作天數後的預計完成日。", args: "(起始日期；要增加的工作天數；自訂假日日期範圍或陣列)", example: "計算專案工期（從指定日期起算 10 個工作天後）", formula: "從 A2 起算 10 個工作天，過程中跳過六日與 C2:C10 所列的自訂假日。" },
-            { id: 7, category: "時間系列函數", name: "NETWORKDAYS", usage: "計算兩個日期之間實際包含的「工作天數」（自動扣除週末與假日）。", args: "(開始日期；結束日期；(選填) 自訂假日範圍)", example: "計算專案實際耗費的工作天數", formula: "計算 A2 至 B2 之間扣除六日與 C2:C10 假日後的淨工作天數。" },
-            { id: 8, category: "時間系列函數", name: "YEARFRAC", usage: "計算兩個日期之間的時間占一整年的比例（精準小數年數）。", args: "(開始日期；結束日期；日期基底計算方式（0 代表 30/360，1 代表實際/實際天數）)", example: "計算未滿整年年資的小數年數（用於精準計算年終或特休比例）", formula: "計算 A2 到 B2 之間佔一整年的比例（如 1.5 年）。" },
-            { id: 9, category: "排序與排名函數", name: "RANK.EQ", usage: "計算指定數字在一組數據中的名次；若數值相同則給予相同名次（傳統排名方式）。", args: "(要查詢排名的目標數字；用來比對的整組數字範圍；排序方向（0 代表降冪，1 代表升冪）)", example: "計算學生考試總分的班級排名（由高到低）", formula: "計算 A2 分數在 A2:A100 範圍內由高到低的排名。" },
-            { id: 10, category: "排序與排名函數", name: "RANK.AVG", usage: "計算指定數字的名次；若有相同數值（同名），傳回其所占據名次的平均值。", args: "(目標數字；比對資料範圍；排序方向（0 降冪，1 升冪）)", example: "評分系統中出現同分時取平均名次（如兩人並列第 2 名，皆傳回 2.5 名）", formula: "計算 A2 在 A2:A100 中的名次，同分時傳回平均排名。" },
-            { id: 11, category: "排序與排名函數", name: "SORT", usage: "對整個資料表格進行動態排序，並自動輸出排序後的完整新表格。", args: "(要排序的完整資料範圍；依據範圍內的第幾欄排序（預設 1）； 1 升冪，-1 降冪； FALSE 按列排序，TRUE 按欄排序)", example: "將銷售數據表依照「銷售金額」從大到小重新排序", formula: "對 A2:C100 範圍依據第 3 欄（銷售額）進行降冪（-1）排序。" },
-            { id: 12, category: "排序與排名函數", name: "SORTBY", usage: "依據不在輸出範圍內或多重欄位的條件對資料進行靈活排序。", args: "(要輸出的原始資料範圍；用來排序的依據欄位/陣列； 1 升冪，-1 降冪；(選填) 第二組次要排序依據與方向)", example: "先按「部門」升冪排序，部門相同時再按「考績分數」降冪排序", formula: "對 A2:C100 進行排序，主要依據 B 欄（升冪），次要依據 C 欄（降冪）。" },
-            { id: 13, category: "排序與排名函數", name: "LARGE", usage: "從指定數字範圍中，找出第 k 個最大的數值。", args: "(數字資料範圍；k: 要找第幾大（如 1 代表第 1 大，2 代表第 2 大）)", example: "找出業績前三名的銷售金額（分別帶入 k=1, 2, 3）", formula: "取得 B2:B100 範圍內的最高金額（第 1 大）。" },
-            { id: 14, category: "排序與排名函數", name: "SMALL", usage: "從指定數字範圍中，找出第 k 個最小的數值。", args: "(數字資料範圍；k: 要找第幾小（如 1 代表最小，2 代表第 2 小）)", example: "找出競賽中最快完成的個人前三名時間或最低成本", formula: "取得 B2:B100 範圍內的最小值（第 1 小）。" },
-            { id: 15, category: "文本處理", name: "CONCATENATE / CONCAT", usage: "把多個儲存格或文字串起來合併成一個。", args: "(第1個要接起來的文字或儲存格；第2個、第3個要繼續往後貼上的文字或儲存格)", example: "若 A2 為 \"張\"、B2 為 \"三\"，公式會輸出 \"張 三\"。", formula: "將多個文字字串或儲存格範圍串接在一起。" },
-            { id: 16, category: "文本處理", name: "LEFT", usage: "從文字的最左邊開始拿指定數量的字。", args: "(原始文字或儲存格； 要從最左邊抓幾個字出來)", example: "若 A2 為 \"A123456789\"，公式會輸出 \"A\"。", formula: "從字串左側擷取指定長度的字元。" },
-            { id: 17, category: "文本處理", name: "RIGHT", usage: "從文字的最右邊開始拿指定數量的字。", args: "(原始文字或儲存格；要從最右邊抓幾個字出來）", example: "若 A2 為 \"0912345678\"，公式會輸出 \"5678\"。", formula: "從字串右側擷取指定長度的字元。" },
-            { id: 18, category: "文本處理", name: "MID", usage: "從文字的中間指定位置抓出指定長度的字。", args: "(原始文字或儲存格；從第幾個字開始拿；往後連續拿幾個字)", example: "若 A2 為 \"A123456789\"，從第 2 個字開始抓 1 個字，輸出 \"1\"。", formula: "從指定起始位置起算，擷取特定長度的文字。" },
-            { id: 19, category: "文本處理", name: "LEN", usage: "計算文字總共有幾個字（包含空白與符號）。", args: "(要計算長度的文字或儲存格)", example: "若 A2 為 \"A123456789\"，公式會輸出 10。", formula: "計算並回傳目標儲存格字串的字數長度。" },
-            { id: 20, category: "文本處理", name: "TRIM", usage: "刪除文字前後的多餘空白，中間連續空白只留一個。", args: "(含有多餘空白字元的文字或儲存格)", example: "若 A2 為 \"  蘋果  \"，公式會輸出 \"蘋果\"。", formula: "清除非必要空白格，僅保留字詞間單一空格。" },
-            { id: 21, category: "文字處理 (TEXT系列)", name: "TEXT", usage: "將數值或日期依照指定格式轉換為文字字串。", args: "(要轉換為文字的數值、日期或公式結果；格式化代碼（如 \"YYYY-MM-DD\"）)", example: "將日期與數字格式化後進行字串串接", formula: "將TODAY()取得的日期轉為YYYY-MM-DD格式的文字並與前綴串接。" },
-            { id: 22, category: "文字處理 (TEXT系列)", name: "TEXTBEFORE", usage: "取出指定分隔符號之前的所有文字。", args: "(原始文字；分隔符號；指定第幾個分隔符號；是否區分大小寫；未找到時傳回值)", example: "從 Email 帳號中取出 @ 符號前的使用者名稱", formula: "尋找A2儲存格中的@符號，並傳回其左側的所有文字。" },
-            { id: 23, category: "文字處理 (TEXT系列)", name: "TEXTAFTER", usage: "取出指定分隔符號之後的所有文字。", args: "(原始文字；分隔符號；指定第幾個分隔符號；是否區分大小寫；未找到時傳回值)", example: "從 Email 帳號中取出 @ 符號後的網域名稱", formula: "尋找A2儲存格中的@符號，並傳回其右側的所有文字。" },
-            { id: 24, category: "文字處理 (TEXT系列)", name: "TEXTJOIN", usage: "使用指定的自訂分隔符號，將多個範圍或字串合併為一個文字（可自動忽略空白格）。", args: "(分隔符號；是否忽略空白儲存格；要合併的文字儲存格或範圍)", example: "將同一列的複數標籤用頓號「、」合併為單一字串", formula: "將A2至E2範圍內的文字用頓號串接，自動跳過其中的空白儲存格。" },
-            { id: 25, category: "文字處理 (TEXT系列)", name: "TEXTSPLIT", usage: "根據指定的分隔符號，將單一文字拆分並延伸至多個欄或列（相等於公式化的「資料剖析」）。", args: "(原始文字；按欄拆分符號；按列拆分符號；是否忽略連續分隔符；填補值)", example: "將以逗號分隔的品項字串拆分到橫向的多個欄位中", formula: "讀取A2中的字串，只要遇到逗號就自動向右拆分至不同欄位。" },
-            { id: 26, category: "邏輯與條件", name: "IF", usage: "做邏輯判斷，如果對就顯示A，不對就顯示B。", args: "(檢查條件；條件成立時顯示的內容；條件不成立時顯示的內容)", example: "若 A2 為 75，輸出 \"及格\"；若為 45，輸出 \"不及格\"。", formula: "條件為真傳回第二引數，為假傳回第三引數。" },
-            { id: 27, category: "邏輯與條件", name: "IFS", usage: "依序檢查多個條件，傳回第一個成立條件對應的結果（用來取代複雜的巢狀多層 IF）。", args: "(條件1；結果1；條件2；結果2...)", example: "根據考試成績給定等第（90分以上為 A、80分以上為 B、其餘為 C）", formula: "依序判斷，A2>=90給A；否則判斷A2>=80給B；最後用TRUE作為預設條件給C。" },
-            { id: 28, category: "邏輯與條件", name: "AND", usage: "檢查多個條件是否「全部」成立。", args: "(條件1；條件2... 全部符合才為 TRUE)", example: "若 A2 (筆試) 為 65 且 B2 (面試) 為 80，條件全部成立，輸出 \"錄取\"。", formula: "所有參數判斷式皆成立時回傳 TRUE。" },
-            { id: 29, category: "邏輯與條件", name: "OR", usage: "檢查多個條件是否「只要有一個」成立。", args: "(條件1；條件2... 任一符合即為 TRUE)", example: "只要 A2 為 \"A\" 或 B2 大於 5 其中一項成立，即輸出 \"符合資格\"。", formula: "任一參數判斷式成立即回傳 TRUE。" },
-            { id: 30, category: "邏輯與條件", name: "IFERROR", usage: "如果公式算出來變錯字（如 #DIV/0!），就改顯示指定文字。", args: "(原始計算公式；計算出錯時要顯示的替代內容)", example: "若 A2 (總價) 為 1000，B2 (數量) 為 0，原本會報錯，經處理後輸出 0。", formula: "當第一引數計算出錯時，自動替換為第二引數指定的自訂值。" },
-            { id: 31, category: "數值計算與統計", name: "SUM", usage: "把指定的數字或儲存格範圍全部加起來。", args: "(要加總的第1個數字或範圍；其他要加總的數字或範圍)", example: "將 B2 到 B31 儲存格的所有數值相加。", formula: "將指定數值或範圍內所有數字進行總和計算。" },
-            { id: 32, category: "數值計算與統計", name: "SUMIF", usage: "只把符合特定條件的格子拿來加總。", args: "(對照條件的範圍；篩選條件；真正要加總的數字範圍)", example: "對照 A2:A100 (部門)，若為 \"業務部\"，則加總對應列的 B2:B100 (薪水)。", formula: "針對單一判斷條件進行指定範圍的數值加總。" },
-            { id: 33, category: "數值計算與統計", name: "SUMIFS", usage: "根據多個條件進行篩選，符合所有條件的資料才進行數字加總。", args: "(加總範圍；條件範圍1；條件1；條件範圍2；條件2...)", example: "計算「台北店」且品項為「飲料」的總銷售額", formula: "C2:C100是銷售金額欄；當A欄等於台北店且B欄等於飲料時才進行加總。" },
-            { id: 34, category: "數值計算與統計", name: "AVERAGE", usage: "計算指定範圍內數字的平均值。", args: "(第1個數字或範圍；其他數字或範圍)", example: "計算 C2 到 C50 範圍內數值的算術平均值。", formula: "計算範圍內數值的算術平均數。" },
-            { id: 35, category: "數值計算與統計", name: "AVERAGEIF", usage: "根據單一條件篩選資料，並計算符合條件資料的平均值。", args: "(檢查條件範圍；篩選條件；算平均的數字範圍)", example: "計算「研發部」員工的平均薪資", formula: "A欄為部門，當其內容為研發部時，計算對應B欄薪資的平均值。" },
-            { id: 36, category: "數值計算與統計", name: "AVERAGEIFS", usage: "根據多個條件篩選資料，符合所有條件的資料才計算平均值。", args: "(算平均範圍；條件範圍1；條件1；條件範圍2；條件2...)", example: "計算「研發部」且職級為「高級」的平均薪資", formula: "C欄為薪資；當A欄為研發部且B欄為高級時才納入平均計算。" },
-            { id: 37, category: "數值計算與統計", name: "COUNT", usage: "數數看範圍內有幾個格子填的是「數字」。(算筆數)", args: "(檢查範圍1；其他範圍)", example: "只統計 B2 到 B100 之中格式為「數字」的儲存格數量。", formula: "計算包含純數值格式的儲存格數量。" },
-            { id: 38, category: "數值計算與統計", name: "COUNTA", usage: "數數看範圍內有幾個格子「不是空的」（有填資料的都算）。", args: "(檢查範圍1；其他範圍)", example: "統計 A2 到 A100 中包含文字、數字或符號的非空白儲存格總數。", formula: "計算範圍內所有非空白儲存格的總數量。" },
-            { id: 39, category: "數值計算與統計", name: "COUNTIFS", usage: "同時檢查多個條件，計算完全符合所有條件的資料有幾筆。", args: "(條件範圍1；條件1；條件範圍2；條件2...)", example: "統計考試成績「大於等於 60 分」且出席率「大於 80%」的學生人數", formula: "同時檢查A欄分數與B欄出席率，兩者皆符合才計數1次。" },
-            { id: 40, category: "數值計算與統計", name: "COUNTIF", usage: "計算範圍內符合特定條件的格子有幾個。(算筆數)", args: "(統計範圍；篩選條件)", example: "統計 B2 到 B50 之中數值大於等於 80 的個數。", formula: "計算符合指定條件的儲存格個數。" },
-            { id: 41, category: "資料尋找與參照", name: "VLOOKUP", usage: "對照表格最左欄查關鍵字，並帶出同一列其他欄位的資料。", args: "(關鍵字；對照表範圍；抓第幾欄；FALSE完全比對)", example: "在 A2:C100 第一欄搜尋 \"E001\"，找到後回傳該列第 2 欄 (姓名) 的值。", formula: "從對照範圍第一欄尋找目標，並回傳指定欄位資料。" },
-            { id: 42, category: "資料尋找與參照", name: "XLOOKUP", usage: "新版強大搜尋函數，可左右雙向對照帶資料。", args: "(關鍵字；關鍵字欄位；結果欄位；找不到時顯示內容；比對模式；搜尋方向)", example: "在 B2:B100 尋找 \"筆記本\"，找到後回傳 A2:A100 對應值；若無則顯示 \"查無此品項\"。", formula: "彈性搜尋指定欄位並回傳對應欄位資料，支援預設錯誤處理。" },
-            { id: 43, category: "資料尋找與參照", name: "INDEX", usage: "根據指定的欄列座標位置，取出格子裡的值。", args: "(資料範圍；第幾列；第幾欄)", example: "返回 A1:D10 範圍內第 3 列與第 2 欄交叉點的儲存格內容 (即 B3)。", formula: "依據給定的列號與欄號交叉定位回傳儲存格值。" },
-            { id: 44, category: "資料尋找與參照", name: "MATCH", usage: "找出關鍵字在範圍裡的第幾個位置（傳回數字）。", args: "(關鍵字；搜尋欄位/列範圍；0精確比對)", example: "在 A1:A50 中尋找 \"王小明\"，若位在 A5 儲存格，則回傳數字 5。", formula: "搜尋指定範圍內項目並回傳其相對位置的序號。" },
-            { id: 45, category: "數值與統計進階計算", name: "MAXIFS", usage: "找出符合一至多個指定條件的資料中，最大的一個數值。", args: "(最大值欄位；條件範圍1；條件1；條件範圍2；條件2...)", example: "找出「業務部」中業績最高的個人銷售金額", formula: "在A欄等於業務部的資料中，找出B欄金額的最大值。" },
-            { id: 46, category: "數值與統計進階計算", name: "MINIFS", usage: "找出符合一至多個指定條件的資料中，最小的一個數值。", args: "(最小值欄位；條件範圍1；條件1；條件範圍2；條件2...)", example: "找出「A 產品」在「2026 年」的最低採購進貨成本", formula: "當A欄為A產品且B欄為2026年時，取C欄成本的最小值。" },
-            { id: 47, category: "數值與統計進階計算", name: "SWITCH", usage: "拿一個目標值去跟清單逐一比對，傳回第一個完全對應的結果。", args: "(目標值；比對值1；結果1；比對值2；結果2...；預設值)", example: "將數字代碼轉換為星期名稱（1 轉星期一，2 轉星期二）", formula: "比對A2的值，若是1傳回星期一，2傳回星期二，皆未中傳回預設值未知。" },
-            { id: 48, category: "數值與統計進階計算", name: "ROUND", usage: "把數字按照指定的小數位數進行四捨五入。", args: "(原始數字；保留小數位數)", example: "將含稅金額進行四捨五入並保留至小數點後第 2 位", formula: "把A2*1.05的計算結果進行四捨五入，保留小數點後2位。" },
-            { id: 49, category: "數值與統計進階計算", name: "ROUNDUP", usage: "把數字按照指定的小數位數強制無條件進位。", args: "(原始數字；保留小數位數)", example: "計算商品裝箱數（例如每箱 10 件，3.1 箱需無條件進位算 4 箱）", formula: "將A2/10的計算結果無條件進位至整數（小數點後0位）。" },
-            { id: 50, category: "數值與統計進階計算", name: "ROUNDDOWN", usage: "把數字按照指定的小數位數強制無條件捨去。", args: "(原始數字；保留小數位數)", example: "計算員工可兌換特休的完整年資（不滿一整年的小數無條件捨去）", formula: "將工作天數A2除以365後，無條件捨去小數部分取完整整數年。" },
-            { id: 51, category: "數值與統計進階計算", name: "SUMPRODUCT", usage: "將多組對應位置的數字相乘後，再把所有的乘積全部加總起來（常用於計算加權平均或總金額）。", args: "(數字範圍1；數字範圍2...)", example: "計算購物車內多筆商品的總購買金額（單價 * 數量 後加總）", formula: "將A2:A10（單價）與B2:B10（數量）對應位置相乘後自動全部加總。" },
-            { id: 52, category: "數值與統計進階計算", name: "SUBTOTAL", usage: "進行小計或分類統計，計算時會自動忽略因手動隱藏或篩選而隱藏的列。", args: "(計算類型代碼；資料範圍1；資料範圍2...)", example: "計算篩選後的數據總金額（自動忽略因手動篩選而隱藏的資料列）", formula: "功能代碼9代表加總（SUM），僅加總目前畫面上篩選可見的C2:C100數值。" },
-            { id: 53, category: "數值與統計進階計算", name: "AGGREGATE", usage: "強大的進階小計函數，可在計算時自動忽略錯誤值（如 #N/A）或隱藏列。", args: "(計算功能代碼；忽略選項代碼；資料範圍；[k])", example: "計算數值總和，並自動忽略範圍內的 #N/A 錯誤值", formula: "功能代碼9表SUM，選項代碼6表忽略錯誤值，確保計算時不跳錯。" },
-            { id: 54, category: "數值與統計進階計算", name: "MOD", usage: "計算兩數相除後的餘數（常用於判斷奇偶數或週期性計算）。", args: "(被除數；除數)", example: "判斷員工編號或數字是奇數還是偶數", formula: "A2除以2若餘數為0代表偶數，否則為奇數。" },
-            { id: 55, category: "數值與統計進階計算", name: "ABS", usage: "計算數字的絕對值，強制將負數轉換為正數。", args: "(原始數字或儲存格)", example: "計算實際支出與預算之間的絕對差距（只看金額差，不計正負號）", formula: "計算A2與B2相減的差額，並強制轉為正數。" },
-            { id: 56, category: "動態陣列與資料處理", name: "UNIQUE", usage: "自動去除指定範圍內的重複資料，僅保留不重複的唯一值清單。", args: "(原始資料範圍；按列/欄；是否僅取出現過1次的項目)", example: "從 500 筆訂單紀錄中，自動提取出不重複的客戶名稱清單", formula: "掃描A2:A500範圍，自動剔除重複項目並輸出唯一值清單。" },
-            { id: 57, category: "動態陣列與資料處理", name: "FILTER", usage: "根據指定條件動態過濾資料，並將符合條件的所有整列資料一次產出。", args: "(答案範圍；條件判斷式；找不到時顯示內容)", example: "自動抽取出所有分店為「台北店」的完整員工資料列", formula: "當A2:A100等於台北店時，將該列A到D欄的完整資料自動連動抽出。" },
-            { id: 58, category: "動態陣列與資料處理", name: "SEQUENCE", usage: "自動填入並產生連續遞增或遞減的數字陣列（常用於動態生成序號）。", args: "(幾列；幾欄；起始數字；間隔數字)", example: "自動建立包含 10 列的流水編號（從 1001 開始，每次加 1）", formula: "自動產生10列1欄的數列，從1001開始，每列遞增1（生成1001~1010）。" }
+            { id: 1, category: "時間系列函數", name: "TODAY", usage: "傳回目前日期的序列號（自動隨系統當天更新）。", args: "(無須引數)", example: "傳回今天的日期，如 2026/08/24。", formula: "傳回系統目前日期，不包含時間部分，常用於計算天數差或到期日。", caseImage: "", caseDesc: "【TODAY 函數】自動取得今日日期範例。" },
+            { id: 2, category: "時間系列函數", name: "DATE", usage: "根據輸入的年、月、日三個獨立數字組合出標準 Excel 日期。", args: "(年份；月份；日期)", example: "結合其他儲存格的數字組合為標準日期格式", formula: "將數字 2026、8、18 合併轉換為標準日期 2026/8/18。", caseImage: "", caseDesc: "【DATE 函數】組合年月日欄位為標準日期。" },
+            { id: 3, category: "時間系列函數", name: "DATEDIF", usage: "計算兩個日期之間的差距（天數、月數或年數）。", args: "(開始日期；結束日期；計算單位（\"Y\" 為年、\"M\" 為月、\"D\" 為天）)", example: "計算員工的精準年資（以年為單位）", formula: "計算 A2 入職日期與今天之間的完整年數差。", caseImage: "", caseDesc: "【DATEDIF 函數】計算精準年資與日期差。" },
+            { id: 4, category: "時間系列函數", name: "EDATE", usage: "計算指定日期在增加或減少 N 個月後的對應同一天日期。", args: "(起始日期；要增加或減少的月份數量)", example: "計算合約到期日（簽約日加上 12 個月）", formula: "取得 A2 簽約日期在 12 個月後的同一天日期。", caseImage: "", caseDesc: "【EDATE 函數】快速推算次月或未來月份對應日。" },
+            { id: 5, category: "時間系列函數", name: "EOMONTH", usage: "計算指定日期在偏移 N 個月後的「該月最後一天」日期。", args: "(起始日期；要偏移的月份數)", example: "計算當月或次月的結帳截止日（月底）", formula: "取得 A2 日期所在月份的最後一天日期。", caseImage: "", caseDesc: "【EOMONTH 函數】精準抓出各月份月底最後一天。" },
+            { id: 6, category: "時間系列函數", name: "WORKDAY", usage: "自動扣除週末及指定國定假日，計算指定工作天數後的預計完成日。", args: "(起始日期；要增加的工作天數；自訂假日日期範圍)", example: "計算專案工期（從指定日期起算 10 個工作天後）", formula: "從 A2 起算 10 個工作天，跳過六日與自訂假日。", caseImage: "", caseDesc: "【WORKDAY 函數】扣除假日後的專案完工日推算。" },
+            { id: 7, category: "時間系列函數", name: "NETWORKDAYS", usage: "計算兩個日期之間實際包含的「工作天數」（自動扣除週末與假日）。", args: "(開始日期；結束日期；自訂假日範圍)", example: "計算專案實際耗費的工作天數", formula: "計算 A2 至 B2 之間扣除六日與假日後的淨工作天數。", caseImage: "", caseDesc: "【NETWORKDAYS 函數】統計兩日期間實際淨工作天數。" },
+            { id: 8, category: "時間系列函數", name: "YEARFRAC", usage: "計算兩個日期之間的時間占一整年的比例（精準小數年數）。", args: "(開始日期；結束日期；日期基底計算方式)", example: "計算未滿整年年資的小數年數", formula: "計算 A2 到 B2 之間佔一整年的比例（如 1.5 年）。", caseImage: "", caseDesc: "【YEARFRAC 函數】計算年資小數位比例。" },
+            { id: 9, category: "排序與排名函數", name: "RANK.EQ", usage: "計算指定數字在一組數據中的名次；若數值相同則給予相同名次。", args: "(目標數字；比對資料範圍；排序方向)", example: "計算學生考試總分的班級排名（由高到低）", formula: "計算 A2 分數在 A2:A100 範圍內由高到低的排名。", caseImage: "", caseDesc: "【RANK.EQ 函數】標準數據名次排名。" },
+            { id: 10, category: "排序與排名函數", name: "RANK.AVG", usage: "計算指定數字的名次；若有相同數值（同名），傳回其所占據名次的平均值。", args: "(目標數字；比對資料範圍；排序方向)", example: "評分系統中出現同分時取平均名次", formula: "計算 A2 在 A2:A100 中的名次，同分時傳回平均排名。", caseImage: "", caseDesc: "【RANK.AVG 函數】同名同分時取平均排名。" },
+            { id: 11, category: "排序與排名函數", name: "SORT", usage: "對整個資料表格進行動態排序，並自動輸出排序後的完整新表格。", args: "(資料範圍；排序欄位；升降冪；按列/欄)", example: "將銷售數據表依照「銷售金額」從大到小重新排序", formula: "對 A2:C100 範圍依據第 3 欄進行降冪排序。", caseImage: "", caseDesc: "【SORT 函數】動態生成排序後的全新表格。" },
+            { id: 12, category: "排序與排名函數", name: "SORTBY", usage: "依據不在輸出範圍內或多重欄位的條件對資料進行靈活排序。", args: "(資料範圍；排序依據欄位；升降冪...)", example: "先按「部門」升冪排序，部門相同時再按「考績分數」降冪排序", formula: "對 A2:C100 進行排序，主要依據 B 欄，次要依據 C 欄。", caseImage: "", caseDesc: "【SORTBY 函數】多重條件靈活動態排序。" },
+            { id: 13, category: "排序與排名函數", name: "LARGE", usage: "從指定數字範圍中，找出第 k 個最大的數值。", args: "(資料範圍；k: 第幾大)", example: "找出業績前三名的銷售金額", formula: "取得 B2:B100 範圍內的最高金額（第 1 大）。", caseImage: "", caseDesc: "【LARGE 函數】取出排行榜前 K 名數值。" },
+            { id: 14, category: "排序與排名函數", name: "SMALL", usage: "從指定數字範圍中，找出第 k 個最小的數值。", args: "(資料範圍；k: 第幾小)", example: "找出競賽中最快完成的時間或最低成本", formula: "取得 B2:B100 範圍內的最小值（第 1 小）。", caseImage: "", caseDesc: "【SMALL 函數】取出倒數第 K 名數值。" },
+            { id: 15, category: "文本處理", name: "CONCATENATE / CONCAT", usage: "把多個儲存格或文字串起來合併成一個。", args: "(文字1；文字2...)", example: "將姓氏與名字串接成完整姓名", formula: "將多個文字字串或儲存格範圍串接在一起。", caseImage: "", caseDesc: "【CONCAT 函數】多欄位文字合併範例。" },
+            { id: 16, category: "文本處理", name: "LEFT", usage: "從文字的最左邊開始拿指定數量的字。", args: "(原始文字；字數)", example: "擷取身份證字號的第一個英文字母", formula: "從字串左側擷取指定長度的字元。", caseImage: "", caseDesc: "【LEFT 函數】從左側擷取字串。" },
+            { id: 17, category: "文本處理", name: "RIGHT", usage: "從文字的最右邊開始拿指定數量的字。", args: "(原始文字；字數)", example: "擷取電話號碼的後 4 碼", formula: "從字串右側擷取指定長度的字元。", caseImage: "", caseDesc: "【RIGHT 函數】從右側擷取字串。" },
+            { id: 18, category: "文本處理", name: "MID", usage: "從文字的中間指定位置抓出指定長度的字。", args: "(原始文字；起始位置；長度)", example: "從身份證字號中間判斷性別", formula: "從指定起始位置起算，擷取特定長度的文字。", caseImage: "", caseDesc: "【MID 函數】從中間指定位置擷取字串。" },
+            { id: 19, category: "文本處理", name: "LEN", usage: "計算文字總共有幾個字（包含空白與符號）。", args: "(文字或儲存格)", example: "檢查帳號長度是否符合格式規範", formula: "計算並回傳目標儲存格字串的字數長度。", caseImage: "", caseDesc: "【LEN 函數】計算字串總字數。" },
+            { id: 20, category: "文本處理", name: "TRIM", usage: "刪除文字前後的多餘空白，中間連續空白只留一個。", args: "(文字或儲存格)", example: "清除複製匯入時的多餘空格", formula: "清除非必要空白格，僅保留字詞間單一空格。", caseImage: "", caseDesc: "【TRIM 函數】清除文字多餘空格。" },
+            { id: 21, category: "文字處理 (TEXT系列)", name: "TEXT", usage: "將數值或日期依照指定格式轉換為文字字串。", args: "(數值或日期；格式化代碼)", example: "將日期格式化為 \"2026-08-24\" 文字", formula: "將數值轉為自訂格式的文字格式。", caseImage: "", caseDesc: "【TEXT 函數】將數字與日期轉換為格式化字串。" },
+            { id: 22, category: "文字處理 (TEXT系列)", name: "TEXTBEFORE", usage: "取出指定分隔符號之前的所有文字。", args: "(原始文字；分隔符號)", example: "從 Email 帳號中取出 @ 符號前的使用者名稱", formula: "尋找A2儲存格中的@符號，傳回其左側文字。", caseImage: "", caseDesc: "【TEXTBEFORE 函數】快速擷取指定符號前的字串。" },
+            { id: 23, category: "文字處理 (TEXT系列)", name: "TEXTAFTER", usage: "取出指定分隔符號之後的所有文字。", args: "(原始文字；分隔符號)", example: "從 Email 帳號中取出 @ 符號後的網域名稱", formula: "尋找A2儲存格中的@符號，傳回其右側文字。", caseImage: "", caseDesc: "【TEXTAFTER 函數】快速擷取指定符號後的字串。" },
+            { id: 24, category: "文字處理 (TEXT系列)", name: "TEXTJOIN", usage: "使用指定分隔符號將多個範圍合併（可忽略空白格）。", args: "(分隔符號；忽略空白；文字範圍)", example: "將同一列的標籤用頓號「、」合併", formula: "用頓號串接文字，自動跳過空白格。", caseImage: "", caseDesc: "【TEXTJOIN 函數】加分隔符號靈活合併文字。" },
+            { id: 25, category: "文字處理 (TEXT系列)", name: "TEXTSPLIT", usage: "根據指定分隔符號將單一文字拆分到多欄或多列。", args: "(原始文字；欄分隔符；列分隔符)", example: "將逗號分隔的品項拆分到不同欄位", formula: "遇逗號自動拆分至不同欄位。", caseImage: "", caseDesc: "【TEXTSPLIT 函數】公式化自動剖析拆分文字。" },
+            { id: 26, category: "邏輯與條件", name: "IF", usage: "做邏輯判斷，如果對就顯示A，不對就顯示B。", args: "(檢查條件；成立結果；不成立結果)", example: "分數 >= 60 輸出 \"及格\"，否則 \"不及格\"", formula: "條件為真傳回第二引數，為假傳回第三引數。", caseImage: "", caseDesc: "【IF 函數】基礎邏輯判斷範例。" },
+            { id: 27, category: "邏輯與條件", name: "IFS", usage: "依序檢查多個條件，傳回第一個成立條件對應的結果。", args: "(條件1；結果1；條件2；結果2...)", example: "多階段成績給等第（90分以上A、80分以上B...）", formula: "依序判斷，傳回第一個符合條件的結果。", caseImage: "", caseDesc: "【IFS 函數】多重條件快速判斷。" },
+            { id: 28, category: "邏輯與條件", name: "AND", usage: "檢查多個條件是否「全部」成立。", args: "(條件1；條件2...)", example: "筆試與面試皆需過關才錄取", formula: "所有參數判斷式皆成立時回傳 TRUE。", caseImage: "", caseDesc: "【AND 函數】多條件同時成立檢驗。" },
+            { id: 29, category: "邏輯與條件", name: "OR", usage: "檢查多個條件是否「只要有一個」成立。", args: "(條件1；條件2...)", example: "只要身分別為 VIP 或消費滿額即享折扣", formula: "任一參數判斷式成立即回傳 TRUE。", caseImage: "", caseDesc: "【OR 函數】多條件任一成立檢驗。" },
+            { id: 30, category: "邏輯與條件", name: "IFERROR", usage: "如果公式算出來變錯字，就改顯示指定替代內容。", args: "(原始公式；錯誤時顯示值)", example: "除以 0 時不報錯，改顯示 0 或 \"無資料\"", formula: "當第一引數計算出錯時，自動替換為指定值。", caseImage: "", caseDesc: "【IFERROR 函數】容錯防錯處理。" },
+            { id: 31, category: "數值計算與統計", name: "SUM", usage: "把指定的數字或儲存格範圍全部加起來。", args: "(範圍1；範圍2...)", example: "計算當月總支出額度", formula: "將指定範圍內所有數字進行總和計算。", caseImage: "", caseDesc: "【SUM 函數】基礎數值加總。" },
+            { id: 32, category: "數值計算與統計", name: "SUMIF", usage: "只把符合特定條件的格子拿來加總。", args: "(條件範圍；條件；加總範圍)", example: "計算「業務部」的薪資總額", formula: "針對單一條件進行指定範圍的數值加總。", caseImage: "", caseDesc: "【SUMIF 函數】單一條件篩選加總。" },
+            { id: 33, category: "數值計算與統計", name: "SUMIFS", usage: "根據多個條件進行篩選，符合所有條件才進行加總。", args: "(加總範圍；條件範圍1；條件1...)", example: "計算「台北店」且品項為「飲料」的總銷售額", formula: "多條件同時符合時進行加總計算。", caseImage: "", caseDesc: "【SUMIFS 函數】多條件精準篩選加總。" },
+            { id: 34, category: "數值計算與統計", name: "AVERAGE", usage: "計算指定範圍內數字的算術平均值。", args: "(範圍1；範圍2...)", example: "計算全班學生平均分數", formula: "計算範圍內數值的算術平均數。", caseImage: "", caseDesc: "【AVERAGE 函數】平均數計算。" },
+            { id: 35, category: "數值計算與統計", name: "AVERAGEIF", usage: "根據單一條件篩選資料，並計算符合條件資料的平均值。", args: "(條件範圍；條件；平均範圍)", example: "計算「研發部」員工的平均薪資", formula: "針對符合條件者計算平均值。", caseImage: "", caseDesc: "【AVERAGEIF 函數】單條件平均值計算。" },
+            { id: 36, category: "數值計算與統計", name: "AVERAGEIFS", usage: "根據多個條件篩選資料，符合所有條件才計算平均值。", args: "(平均範圍；條件範圍1；條件1...)", example: "計算「研發部」且「資深」員工的平均薪資", formula: "多條件符合時計算平均數。", caseImage: "", caseDesc: "【AVERAGEIFS 函數】多條件平均值計算。" },
+            { id: 37, category: "數值計算與統計", name: "COUNT", usage: "數數看範圍內有幾個格子填的是「數字」。", args: "(範圍1；範圍2...)", example: "統計已輸入成績的考生人數", formula: "計算包含純數值格式的儲存格數量。", caseImage: "", caseDesc: "【COUNT 函數】數字儲存格計數。" },
+            { id: 38, category: "數值計算與統計", name: "COUNTA", usage: "數數看範圍內有幾個格子「不是空的」。", args: "(範圍1；範圍2...)", example: "統計已有簽到的出席總人數", formula: "計算範圍內所有非空白儲存格的總數量。", caseImage: "", caseDesc: "【COUNTA 函數】非空白格總數統計。" },
+            { id: 39, category: "數值計算與統計", name: "COUNTIFS", usage: "同時檢查多個條件，計算完全符合所有條件的筆數。", args: "(條件範圍1；條件1...)", example: "統計分數 >= 60 且出席率 > 80% 的學生數", formula: "同時檢查多條件，全部符合才計數。", caseImage: "", caseDesc: "【COUNTIFS 函數】多條件複合筆數統計。" },
+            { id: 40, category: "數值計算與統計", name: "COUNTIF", usage: "計算範圍內符合特定條件的格子有幾個。", args: "(範圍；條件)", example: "統計業績大於 100 萬的員工人數", formula: "計算符合指定條件的儲存格個數。", caseImage: "", caseDesc: "【COUNTIF 函數】單條件筆數統計。" },
+            { id: 41, category: "資料尋找與參照", name: "VLOOKUP", usage: "對照表格最左欄查關鍵字，帶出同一列其他欄位的資料。", args: "(關鍵字；對照表範圍；第幾欄；FALSE)", example: "輸入員工編號，自動帶出員工姓名", formula: "從對照範圍第一欄尋找目標並帶出資料。", caseImage: "", caseDesc: "【VLOOKUP 函數】垂直對照尋找與帶入資料。" },
+            { id: 42, category: "資料尋找與參照", name: "XLOOKUP", usage: "新版強大搜尋函數，可左右雙向對照帶資料。", args: "(關鍵字；關鍵字欄；結果欄；預設顯示)", example: "雙向對照尋找產品名稱並回傳庫存", formula: "彈性搜尋指定欄位並回傳對應值。", caseImage: "", caseDesc: "【XLOOKUP 函數】新世代雙向彈性搜尋。" },
+            { id: 43, category: "資料尋找與參照", name: "INDEX", usage: "根據指定的欄列座標位置，取出格子裡的值。", args: "(資料範圍；第幾列；第幾欄)", example: "取指定列欄交叉座標點的數值", formula: "依據給定的列號與欄號交叉定位回傳值。", caseImage: "", caseDesc: "【INDEX 函數】座標交叉點資料定位。" },
+            { id: 44, category: "資料尋找與參照", name: "MATCH", usage: "找出關鍵字在範圍裡的第幾個位置（傳回數字）。", args: "(關鍵字；搜尋範圍；0)", example: "尋找姓名在清單中的第幾行", formula: "搜尋項目並回傳其相對位置序號。", caseImage: "", caseDesc: "【MATCH 函數】搜尋關鍵字之相對位置。" },
+            { id: 45, category: "數值與統計進階計算", name: "MAXIFS", usage: "找出符合一至多個指定條件的資料中最大的一個數值。", args: "(最大值欄；條件範圍1；條件1...)", example: "找出業務部中的最高個人業績", formula: "符合條件資料中取最大值。", caseImage: "", caseDesc: "【MAXIFS 函數】條件式極大值尋找。" },
+            { id: 46, category: "數值與統計進階計算", name: "MINIFS", usage: "找出符合一至多個指定條件的資料中最小的一個數值。", args: "(最小值欄；條件範圍1；條件1...)", example: "找出特定產品的最低進貨價格", formula: "符合條件資料中取最小值。", caseImage: "", caseDesc: "【MINIFS 函數】條件式極小值尋找。" },
+            { id: 47, category: "數值與統計進階計算", name: "SWITCH", usage: "拿一個目標值去跟清單逐一比對，傳回第一個完全對應的結果。", args: "(目標值；比對值1；結果1...)", example: "將數字代碼轉為星期名稱", formula: "比對目標值並傳回相對應結果。", caseImage: "", caseDesc: "【SWITCH 函數】多值比對開關轉換。" },
+            { id: 48, category: "數值與統計進階計算", name: "ROUND", usage: "把數字按照指定的小數位數進行四捨五入。", args: "(數字；位數)", example: "將含稅價四捨五入保留至小數點 2 位", formula: "指定位數進行四捨五入。", caseImage: "", caseDesc: "【ROUND 函數】標準四捨五入計算。" },
+            { id: 49, category: "數值與統計進階計算", name: "ROUNDUP", usage: "把數字按照指定的小數位數強制無條件進位。", args: "(數字；位數)", example: "裝箱數量無條件進位計算", formula: "指定位數無條件進位。", caseImage: "", caseDesc: "【ROUNDUP 函數】無條件進位計算。" },
+            { id: 50, category: "數值與統計進階計算", name: "ROUNDDOWN", usage: "把數字按照指定的小數位數強制無條件捨去。", args: "(數字；位數)", example: "計算特休年資無條件捨去小數", formula: "指定位數無條件捨去。", caseImage: "", caseDesc: "【ROUNDDOWN 函數】無條件捨去計算。" },
+            { id: 51, category: "數值與統計進階計算", name: "SUMPRODUCT", usage: "將多組對應位置數字相乘後，再把所有的乘積全部加總起來。", args: "(範圍1；範圍2...)", example: "計算購物車（單價 x 數量）總金額", formula: "對應陣列相乘後自動全數加總。", caseImage: "", caseDesc: "【SUMPRODUCT 函數】陣列乘積加總計算。" },
+            { id: 52, category: "數值與統計進階計算", name: "SUBTOTAL", usage: "進行小計，計算時會自動忽略因手動篩選而隱藏的列。", args: "(功能代碼；範圍)", example: "計算篩選過後的畫面上資料總和", formula: "只加總目前畫面顯示的儲存格數值。", caseImage: "", caseDesc: "【SUBTOTAL 函數】自動忽略隱藏列之篩選小計。" },
+            { id: 53, category: "數值與統計進階計算", name: "AGGREGATE", usage: "進階小計函數，可在計算時自動忽略錯誤值或隱藏列。", args: "(功能碼；選項碼；範圍)", example: "加總數值並自動跳過表格中的 #N/A 錯誤", formula: "自動忽略錯誤值或隱藏列進行統計。", caseImage: "", caseDesc: "【AGGREGATE 函數】無視錯誤值之萬用小計。" },
+            { id: 54, category: "數值與統計進階計算", name: "MOD", usage: "計算兩數相除後的餘數（常用於判斷奇偶數或週期性計算）。", args: "(被除數；除數)", example: "判斷員工編號奇數或偶數", formula: "計算相除後的餘數。", caseImage: "", caseDesc: "【MOD 函數】餘數計算與奇偶判斷。" },
+            { id: 55, category: "數值與統計進階計算", name: "ABS", usage: "計算數字的絕對值，強制將負數轉換為正數。", args: "(數字)", example: "計算預算與實際支出的絕對差距", formula: "強制轉為正數值。", caseImage: "", caseDesc: "【ABS 函數】絕對值轉換。" },
+            { id: 56, category: "動態陣列與資料處理", name: "UNIQUE", usage: "自動去除指定範圍內的重複資料，僅保留不重複的唯一值清單。", args: "(資料範圍)", example: "從訂單紀錄中自動提取不重複客戶清單", formula: "自動剔除重複項目並輸出唯一值。", caseImage: "", caseDesc: "【UNIQUE 函數】自動去除重複項目。" },
+            { id: 57, category: "動態陣列與資料處理", name: "FILTER", usage: "根據條件動態過濾資料，並將符合條件的所有整列資料一次產出。", args: "(資料範圍；條件式)", example: "抽取出所有分店為「台北店」的員工資料", formula: "滿足條件時動態吐出整組資料列。", caseImage: "", caseDesc: "【FILTER 函數】動態條件過濾陣列。" },
+            { id: 58, category: "動態陣列與資料處理", name: "SEQUENCE", usage: "自動填入並產生連續遞增或遞減的數字陣列。", args: "(列數；欄數；起始值；間隔)", example: "自動產生 1001 開始的流水號陣列", formula: "自動生成指定規則的連續數字陣列。", caseImage: "", caseDesc: "【SEQUENCE 函數】動態生成連續數列。" }
         ];
 
-        // 狀態變數
         let currentCategory = "ALL";
         let activeModalIndex = -1;
         let activeCaseIndex = -1;
         let filteredItems = [...rawData];
 
+        // 讀取 LocalStorage 快取圖片 (讓上傳的圖片重新整理後不會消失)
+        const customImages = JSON.parse(localStorage.getItem('excel_guide_custom_images') || '{}');
+
         window.onload = function() {
+            // 套用本地保存的圖片
+            Object.keys(customImages).forEach(id => {
+                const item = rawData.find(d => d.id === parseInt(id));
+                if (item) item.caseImage = customImages[id];
+            });
+
             renderTabs();
             renderCards(rawData);
             
@@ -426,7 +409,6 @@
 
         function filterCategory(category, btnElement) {
             currentCategory = category;
-            
             const buttons = document.querySelectorAll('#categoryTabs button');
             buttons.forEach(b => {
                 b.className = "px-4 py-1.5 text-xs transition-all duration-200 whitespace-nowrap bg-[#1E4A38] text-white hover:bg-[#F4EC99] hover:text-[#12291E] border-2 border-transparent font-bold";
@@ -470,6 +452,11 @@
             emptyState.classList.add('hidden');
 
             grid.innerHTML = items.map((item) => {
+                const hasCustomImg = !!item.caseImage;
+                const badgeStyle = hasCustomImg 
+                    ? "bg-[#6BE3CE] text-[#12291E]" 
+                    : "bg-[#FAF5B8] text-[#12291E]/70";
+
                 return `
                     <article onclick="openModalById(${item.id})" 
                         class="excel-card p-5 cursor-pointer flex flex-col justify-between relative group overflow-hidden">
@@ -488,9 +475,9 @@
                                     </span>
                                     <button onclick="openCaseModal(event, ${item.id})" 
                                         title="點擊檢視實作應用案例照片" 
-                                        class="text-[11px] font-black text-[#12291E] bg-[#6BE3CE] hover:bg-[#F4EC99] px-2 py-0.5 border border-[#12291E] shadow-[2px_2px_0px_#12291E] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all flex items-center gap-1 z-20">
+                                        class="text-[11px] font-black ${badgeStyle} hover:bg-[#F4EC99] px-2 py-0.5 border border-[#12291E] shadow-[2px_2px_0px_#12291E] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all flex items-center gap-1 z-20">
                                         <i class="fa-solid fa-image text-xs"></i>
-                                        <span>實作應用案例</span>
+                                        <span>${hasCustomImg ? '實作案例 (已上傳)' : '實作應用案例'}</span>
                                     </button>
                                 </div>
                             </div>
@@ -609,10 +596,49 @@
             document.getElementById('caseModalName').innerText = `${item.name} 實作應用案例`;
             
             const imgElement = document.getElementById('caseModalImage');
-            const imageUrl = item.caseImage || `https://placehold.co/800x450/1E4A38/FAF5B8?text=${encodeURIComponent(item.name + ' 實作應用案例畫面')}`;
+            const imageUrl = item.caseImage || `https://placehold.co/800x450/1E4A38/FAF5B8?text=${encodeURIComponent(item.name + ' 實作案例預覽（請上傳或輸入網址）')}`;
             imgElement.src = imageUrl;
 
-            document.getElementById('caseModalDesc').innerText = item.caseDesc || `【${item.name}】實作案例照片資料區。未來只需在 JavaScript 資料中為各函數填入照片連結即可自動展示！`;
+            document.getElementById('caseModalDesc').innerText = item.caseDesc || `【${item.name}】實作案例照片資料區。可以點選右上角按鈕為此函數上傳照片或設置網址。`;
+        }
+
+        // 處理電腦檔案上傳 (轉為 Base64 預覽並儲存至 LocalStorage)
+        function handleLocalImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Img = e.target.result;
+                const item = rawData[activeCaseIndex];
+                if (item) {
+                    item.caseImage = base64Img;
+                    customImages[item.id] = base64Img;
+                    localStorage.setItem('excel_guide_custom_images', JSON.stringify(customImages));
+                    
+                    updateCaseModalContent();
+                    renderCards(filteredItems);
+                    showToast(`已成功為 ${item.name} 設定實作照片！`);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 處理輸入圖片網址
+        function promptImageUrl() {
+            const item = rawData[activeCaseIndex];
+            if (!item) return;
+
+            const url = prompt(`請輸入 ${item.name} 的實作圖片網址 (URL)：`, item.caseImage || "");
+            if (url !== null) {
+                item.caseImage = url.trim();
+                customImages[item.id] = url.trim();
+                localStorage.setItem('excel_guide_custom_images', JSON.stringify(customImages));
+
+                updateCaseModalContent();
+                renderCards(filteredItems);
+                showToast(`已更新 ${item.name} 的圖片網址！`);
+            }
         }
 
         function navigateCaseModal(direction) {
@@ -630,7 +656,6 @@
             document.body.style.overflow = '';
         }
 
-        // 點擊背景區域關閉 Modal
         document.getElementById('detailModal').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
         });
